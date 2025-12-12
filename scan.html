@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مسح QR – منصة رفيق</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- QR Scanner Library -->
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="brand">
+      <img src="Rafeeq/Rafeeq Logo.png" alt="شعار رفيق">
+      <span>منصة رفيق</span>
+    </div>
+    <div>
+      <a href="index.html">الرئيسية</a>
+      <a href="features.html">المزايا</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="scan.html">مسح QR/بصمة وجه</a>
+      <a href="pilgrim-app.html">تطبيق الحاج</a>
+      <a href="loginPage.html">تسجيل الدخول</a>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <header class="page-header">
+      <div class="page-header-main">
+        <div class="chip">📲 واجهة رجل الأمن الميداني</div>
+        <h1>مسح الهوية التشغيلية للحاج</h1>
+        <p class="page-intro">
+          قم بمسح رمز QR من بطاقة الحج أو سوار المعصم لقراءة الهوية التشغيلية للحاج.
+          هذه نسخة تجريبية ببيانات افتراضية.
+        </p>
+      </div>
+      <div class="page-header-meta">
+        <div>الموقع الحالي: منى – نقطة تفتيش 3</div>
+      </div>
+    </header>
+
+    <section class="scan-layout">
+
+      <!-- Camera Panel -->
+      <div class="scan-panel">
+        <h2 class="section-title">منطقة المسح الحي</h2>
+        <div id="reader" class="qr-box"></div>
+
+        <div class="scan-actions">
+          <button id="scan-again" class="btn btn-ghost" style="display:none;" onclick="restartScan()">
+            🔄 مسح مرة أخرى
+          </button>
+        </div>
+      </div>
+
+      <!-- Result Panel -->
+      <div class="card result-wrapper" id="result-wrapper">
+        <h2 class="section-title">نتيجة التحقق</h2>
+
+        <div id="result-placeholder" class="result-placeholder">
+          لم يتم المسح بعد. وجّه بطاقة الحج أو السوار نحو الكاميرا.
+        </div>
+
+        <div id="result-card" class="result-card" style="display:none;">
+          <h3 id="pid" class="result-id"></h3>
+          <p id="pdata" class="result-data"></p>
+        </div>
+
+        <p class="result-note">
+          ملاحظة: في حال تعذّر الاتصال بالخادم الرئيسي، يتم استخدام
+          <strong>بيانات محلية تجريبية</strong>.
+        </p>
+      </div>
+
+    </section>
+  </div>
+
+  <footer>
+    رفيق – نسخة تجريبية للهاكاثون • بيانات غير حقيقية
+  </footer>
+
+  <!-- External Script -->
+  <script src="scan.js"></script>
+</body>
+</html>

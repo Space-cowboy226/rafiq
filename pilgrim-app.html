@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تطبيق الحاج – منصة رفيق</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <div class="brand">
+      <img src="Rafeeq/Rafeeq Logo.png" alt="شعار رفيق">
+      <span>منصة رفيق</span>
+    </div>
+    <div>
+      <a href="index.html">الرئيسية</a>
+      <a href="features.html">المزايا</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="scan.html">مسح QR/بصمة وجه</a>
+      <a href="pilgrim-app.html" class="active">تطبيق الحاج</a>
+      <a href="loginPage.html">تسجيل الدخول</a>
+    </div>
+  </nav>
+
+  <div class="container pilgrim-container">
+    <div class="pilgrim-shell">
+      <!-- شريط علوي داخل واجهة الحاج -->
+      <div class="pilgrim-top-bar">
+        <div class="pilgrim-top-title">
+          <span class="pilgrim-logo-circle">ر</span>
+          <span>رفيق – تطبيق الحاج</span>
+        </div>
+        <div class="pilgrim-top-meta">
+          🕒 اليوم: ٨ ذو الحجة
+        </div>
+      </div>
+
+      <!-- بطاقة معلومات الحاج -->
+      <section class="pilgrim-card">
+        <div class="pilgrim-header">
+          <div class="pilgrim-name">أحمد محمد إبراهيم</div>
+          <div class="pilgrim-status">وضع الحج: فعّال ✅</div>
+        </div>
+        <div class="pilgrim-info">
+          <span>🪪 رقم الحاج: P-10293</span>
+          <span>🌍 الجنسية: مصر</span>
+          <span>🏕 السكن: منى – مخيم C12</span>
+          <span>🚍 الحملة: قافلة النور</span>
+        </div>
+      </section>
+
+      <!-- خدمات تشبه نسك -->
+      <h2 class="section-title">خدمات الحج للحاج</h2>
+      <section class="pilgrim-services-grid">
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">🎫</div>
+          <div class="pilgrim-service-label">تصاريح الحج<br>ومواعيد النسك</div>
+        </div>
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">🏕</div>
+          <div class="pilgrim-service-label">السكن في المشاعر<br>وخريطة المخيم</div>
+        </div>
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">🗺️</div>
+          <div class="pilgrim-service-label">المسار اليومي<br>والتنقل بين المشاعر</div>
+        </div>
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">🚌</div>
+          <div class="pilgrim-service-label">رحلات النقل<br>وأوقات الحافلات</div>
+        </div>
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">⚕️</div>
+          <div class="pilgrim-service-label">الخدمات الصحية<br>وأقرب مستشفى</div>
+        </div>
+        <div class="pilgrim-service-card">
+          <div class="pilgrim-service-icon">🧭</div>
+          <div class="pilgrim-service-label">الخرائط الذكية<br>والتوجيه داخل المشاعر</div>
+        </div>
+      </section>
+
+      <!-- رحلة اليوم -->
+      <h2 class="section-title">رحلتي اليوم</h2>
+      <section class="card pilgrim-journey">
+        <div class="pilgrim-timeline-item">
+          <div class="pilgrim-timeline-dot"></div>
+          <div class="pilgrim-timeline-text">
+            <strong>بعد الفجر – التوجه إلى عرفات</strong>
+            <span>الحافلة رقم 24 – التجمع عند بوابة المخيم C12</span>
+          </div>
+        </div>
+        <div class="pilgrim-timeline-item">
+          <div class="pilgrim-timeline-dot amber"></div>
+          <div class="pilgrim-timeline-text">
+            <strong>بعد المغرب – الانطلاق إلى مزدلفة</strong>
+            <span>الانتظار في نقطة التجمع المعتمدة حسب إشعار الحملة</span>
+          </div>
+        </div>
+        <div class="pilgrim-timeline-item">
+          <div class="pilgrim-timeline-dot muted"></div>
+          <div class="pilgrim-timeline-text">
+            <strong>آخر اليوم – العودة إلى منى</strong>
+            <span>التنقل حسب جدول الحملة ودرجة الازدحام</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- زر استغاثة مرتبط بالمنصة -->
+  <div class="pilgrim-sos-button">
+    <button id="open-sos">
+      🚨 استغاثة طارئة
+      <span class="pilgrim-sos-badge">إرسال بلاغ للجهات الميدانية</span>
+    </button>
+  </div>
+
+  <!-- نافذة الاستغاثة -->
+  <div class="pilgrim-sos-overlay" id="sos-overlay">
+    <div class="pilgrim-sos-sheet">
+      <div class="pilgrim-sos-header">
+        <div class="pilgrim-sos-title">
+          🚨 استغاثة
+        </div>
+        <button class="pilgrim-sos-close" id="close-sos">✕</button>
+      </div>
+      <div class="pilgrim-sos-subtitle">
+        اختر نوع الحالة الطارئة ليتم توجيه البلاغ للجهة المناسبة في لوحة تحكم رفيق.
+      </div>
+
+      <div class="pilgrim-sos-types" id="sos-types">
+        <div class="pilgrim-sos-type" data-type="health">
+          <div class="pilgrim-sos-type-icon">⚕️</div>
+          <div>
+            <span class="pilgrim-sos-type-label">حالة صحية</span>
+            <span class="pilgrim-sos-type-desc">إغماء، ألم حاد، صعوبة في التنفس، أو حالة طبية حرجة.</span>
+          </div>
+        </div>
+        <div class="pilgrim-sos-type" data-type="lost">
+          <div class="pilgrim-sos-type-icon">🧍‍♂️</div>
+          <div>
+            <span class="pilgrim-sos-type-label">فقدان مرافق أو ضياع</span>
+            <span class="pilgrim-sos-type-desc">انفصال عن الحملة أو فقدان أحد أفراد المجموعة.</span>
+          </div>
+        </div>
+        <div class="pilgrim-sos-type" data-type="crowd">
+          <div class="pilgrim-sos-type-icon">👥</div>
+          <div>
+            <span class="pilgrim-sos-type-label">ازدحام أو تدافع</span>
+            <span class="pilgrim-sos-type-desc">تجمع شديد، صعوبة حركة، أو مخاوف من تدافع.</span>
+          </div>
+        </div>
+        <div class="pilgrim-sos-type" data-type="security">
+          <div class="pilgrim-sos-type-icon">🛡️</div>
+          <div>
+            <span class="pilgrim-sos-type-label">بلاغ أمني</span>
+            <span class="pilgrim-sos-type-desc">سلوك مريب، فقدان وثائق مهمة، أو حاجة لمساندة أمنية.</span>
+          </div>
+        </div>
+        <div class="pilgrim-sos-type" data-type="other" style="grid-column: 1 / -1;">
+          <div class="pilgrim-sos-type-icon">❓</div>
+          <div>
+            <span class="pilgrim-sos-type-label">أخرى</span>
+            <span class="pilgrim-sos-type-desc">حالة مختلفة عن الخيارات السابقة.</span>
+          </div>
+        </div>
+      </div>
+
+      <label class="pilgrim-sos-location-row">
+        <input type="checkbox" id="share-location" checked>
+        <span>
+          <strong>مشاركة موقعي الحالي</strong><br>
+          يساعد هذا في توجيه البلاغ في لوحة التحكم مع تحديد موقعك في الخريطة.
+        </span>
+      </label>
+
+      <div class="pilgrim-sos-actions">
+        <button class="btn-primary" id="send-sos">إرسال الاستغاثة</button>
+        <button class="btn-secondary" id="call-emergency">الاتصال برقم الطوارئ</button>
+      </div>
+
+      <div class="pilgrim-sos-feedback" id="sos-feedback">
+        ✅ (محاكاة) تم تسجيل طلب الاستغاثة – يمكن تخيل ظهور البلاغ الآن في لوحة التحكم رفيق.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    رفيق – نموذج واجهة الحاج المرتبطة بلوحة التحكم التشغيلية.
+  </footer>
+
+  <script>
+    const sosOverlay = document.getElementById("sos-overlay");
+    const openSosBtn = document.getElementById("open-sos");
+    const closeSosBtn = document.getElementById("close-sos");
+    const sosTypesContainer = document.getElementById("sos-types");
+    const sendSosBtn = document.getElementById("send-sos");
+    const callEmergencyBtn = document.getElementById("call-emergency");
+    const sosFeedback = document.getElementById("sos-feedback");
+
+    let selectedType = null;
+
+    openSosBtn.addEventListener("click", () => {
+      sosOverlay.style.display = "flex";
+      sosFeedback.style.display = "none";
+      selectedType = null;
+      document.querySelectorAll(".pilgrim-sos-type").forEach(t => t.classList.remove("selected"));
+    });
+
+    closeSosBtn.addEventListener("click", () => {
+      sosOverlay.style.display = "none";
+    });
+
+    sosOverlay.addEventListener("click", (e) => {
+      if (e.target === sosOverlay) {
+        sosOverlay.style.display = "none";
+      }
+    });
+
+    sosTypesContainer.addEventListener("click", (e) => {
+      const tile = e.target.closest(".pilgrim-sos-type");
+      if (!tile) return;
+      document.querySelectorAll(".pilgrim-sos-type").forEach(t => t.classList.remove("selected"));
+      tile.classList.add("selected");
+      selectedType = tile.dataset.type;
+    });
+
+    sendSosBtn.addEventListener("click", () => {
+      if (!selectedType) {
+        alert("الرجاء اختيار نوع الحالة الطارئة أولاً.");
+        return;
+      }
+
+      const shareLocation = document.getElementById("share-location").checked;
+
+      // هنا مكان الربط الحقيقي مع باك إند أو مع لوحة التحكم
+      // يمكن مستقبلاً إرسال نوع الحالة والموقع إلى خادم يعرضها في dashboard
+
+      sosFeedback.style.display = "block";
+    });
+
+    callEmergencyBtn.addEventListener("click", () => {
+      window.location.href = "tel:911"; // رقم تجريبي
+    });
+  </script>
+</body>
+</html>

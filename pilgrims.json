@@ -1,0 +1,16 @@
+{
+  "P001": {
+    "name": "أحمد خان",
+    "nationality": "باكستان",
+    "housing": "منى – مخيم C12",
+    "campaign": "حملة النور",
+    "status": "OK"
+  },
+  "P002": {
+    "name": "محمد ياسين",
+    "nationality": "مصر",
+    "housing": "عرفات – A5",
+    "campaign": "قافلة الروضة",
+    "status": "FLAGGED"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "منصة رفيق",
+  "short_name": "رفيق",
+  "lang": "ar",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f4f6f7",
+  "theme_color": "#2F5D53",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "Rafeeq/RafeeqLogo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Rafeeq/RafeeqLogo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

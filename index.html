@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>منصة رفيق – الهوية التشغيلية للحاج</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2F5D53">
+</head>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker Registered ✔"))
+        .catch(err => console.error("SW registration failed:", err));
+    }
+  </script>
+
+
+<body>
+  <nav>
+    <div class="brand">
+      <img src="Rafeeq/Rafeeq Logo.png" alt="شعار رفيق">
+      <span>منصة رفيق</span>
+    </div>
+    <div>
+      <a href="index.html">الرئيسية</a>
+      <a href="features.html">المزايا</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="scan.html">مسح QR/بصمة وجه</a>
+      <a href="pilgrim-app.html">تطبيق الحاج</a>
+      <a href="loginPage.html">تسجيل الدخول</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <h1>هوية تشغيلية موحّدة لحماية ضيوف الرحمن</h1>
+      <p>
+        تربط منصة رفيق بيانات الجوازات، الحج والعمرة، الصحة، الأمن، والحملات في طبقة تشغيلية واحدة
+        تساعد على التحقق الفوري، تقليل حالات الفقدان، وإدارة البلاغات والمواقع في موسم الحج.
+      </p>
+
+      <div class="hero-meta">
+        <span class="chip">
+          🛡️ امتداد لمنظومة الهوية الرقمية والأمن الميداني
+        </span>
+        <span class="hero-note">
+          نموذج تجريبي للعرض في هاكاثون أبشر – بيانات افتراضية فقط
+        </span>
+      </div>
+
+      <div class="btn-row">
+        <a href="dashboard.html" class="btn btn-primary">
+          عرض لوحة التحكم التشغيلية
+        </a>
+        <a href="scan.html" class="btn btn-ghost">
+          تجربة مسح QR كرجل أمن
+        </a>
+      </div>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section class="grid-features">
+      <div class="card">
+        <h3>التحقق اللحظي عبر QR / NFC</h3>
+        <p>
+          يدعم رفيق مسح الهوية التشغيلية للحاج في ثوانٍ عبر نقاط التفتيش والمواقع الميدانية،
+          مع ربط مباشر ببيانات القدوم والجوازات والحملة.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>ربط تشغيلي بين الجهات</h3>
+        <p>
+          توحيد بيانات الجوازات، الحملات، الصحة، وبلاغات 911 في مسار واحد يساعد غرف العمليات
+          على اتخاذ قرار أسرع وأكثر دقة.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>لوحة مؤشرات لحظية</h3>
+        <p>
+          عرض التحققات، البلاغات الحرجة، نقاط التكدس، وحركة الحشود داخل المشاعر في لوحة
+          تشغيل موحّدة تدعم الاستجابة الميدانية.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    رفيق – منصة تجريبية للعرض في الهاكاثون • لا تحتوي على بيانات حقيقية
+  </footer>
+</body>
+</html>

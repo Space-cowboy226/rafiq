@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم – منصة رفيق</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    /* Extra dashboard-specific styles */
+    .alert-card {
+      background: #ffe6e6;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-right: 6px solid #e60000;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .alert-card strong { color: #b30000; }
+
+    #live-map {
+      width: 100%;
+      height: 420px;
+      border-radius: 16px;
+      margin-top: 12px;
+    }
+
+    /* ============================
+       🔥 PULSING OUTLIER ICON
+       ============================ */
+    .outlier-pulse {
+      width: 18px;
+      height: 18px;
+      background: red;
+      border-radius: 50%;
+      opacity: 0.9;
+      border: 2px solid white;
+      animation: pulse 1.4s infinite ease-out;
+      box-shadow: 0 0 6px rgba(255,0,0,0.7);
+    }
+
+    @keyframes pulse {
+      0%   { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.3); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="brand">
+      <img src="Rafeeq/Rafeeq Logo.png" alt="شعار رفيق">
+      <span>منصة رفيق</span>
+    </div>
+    <div>
+      <a href="index.html">الرئيسية</a>
+      <a href="features.html">المزايا</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="scan.html">مسح QR/بصمة وجه</a>
+      <a href="pilgrim-app.html">تطبيق الحاج</a>
+      <a href="loginPage.html">تسجيل الدخول</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header class="page-header">
+      <div class="page-header-main">
+        <div class="chip">⏱ الطبقة التشغيلية الميدانية</div>
+        <h1>لوحة التحكم التشغيلية للحج</h1>
+        <p>عرض لحظي لمواقع الحجاج، البلاغات الميدانية، والتحقق من الهويات الرقمية.</p>
+      </div>
+      <div class="page-header-meta">
+        <div>نموذج تجريبي – بيانات افتراضية</div>
+      </div>
+    </header>
+
+    <!-- KPIs -->
+    <h2 class="section-title">مؤشرات الأداء</h2>
+    <section class="kpi-grid">
+      <article class="kpi-card">
+        <div class="kpi-label">عمليات التحقق خلال آخر ساعة</div>
+        <div class="kpi-value"><span id="kpi-checks">128</span></div>
+      </article>
+
+      <article class="kpi-card">
+        <div class="kpi-label">بلاغات جارية</div>
+        <div class="kpi-value"><span id="kpi-incidents">6</span></div>
+      </article>
+
+      <article class="kpi-card">
+        <div class="kpi-label">متوسط زمن التحقق</div>
+        <div class="kpi-value"><span id="kpi-avg">3.2</span> ث</div>
+      </article>
+
+      <article class="kpi-card">
+        <div class="kpi-label">دقة البيانات</div>
+        <div class="kpi-value"><span id="kpi-accuracy">92</span>٪</div>
+      </article>
+    </section>
+
+    <!-- ALERTS -->
+    <h2 class="section-title">البلاغات الحالية</h2>
+    <div class="card">
+      <div id="alerts-list">جاري التحميل...</div>
+    </div>
+
+    <!-- MAP -->
+    <h2 class="section-title">الخريطة الحية – تتبع مواقع الحجاج</h2>
+    <div class="card">
+      <div id="live-map"></div>
+    </div>
+
+    <!-- LOGS TABLE -->
+    <h2 class="section-title">سجل عمليات التحقق الأخيرة</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>الوقت</th>
+            <th>هوية الحاج</th>
+            <th>الموقع</th>
+            <th>الحالة</th>
+          </tr>
+        </thead>
+        <tbody id="log-body">
+          <tr><td colspan="4">لا توجد سجلات بعد</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <footer>
+    رفيق – منصّة تشغيلية تجريبية للهوية الرقمية ⓒ 2025
+  </footer>
+
+  <!-- DASHBOARD SCRIPT -->
+  <script>
+    const API_LOCATIONS = "https://AngelofDeath.pythonanywhere.com/api/locations";
+    const API_ALERTS    = "https://AngelofDeath.pythonanywhere.com/api/alerts";
+
+    /* ------------------- LIVE MAP -------------------- */
+
+    const map = L.map('live-map').setView([21.4167, 39.9], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+    let markers = {};
+
+    /* 🔥 OUTLIER ICON */
+    const outlierIcon = L.divIcon({
+      className: "",
+      html: `<div class="outlier-pulse"></div>`,
+      iconSize: [18, 18]
+    });
+
+    function updateMap() {
+      fetch(API_LOCATIONS)
+        .then(r => r.json())
+        .then(data => {
+          data.forEach(p => {
+            let icon;
+
+            if (!p.inside_geofence) {
+              icon = outlierIcon;
+            } else {
+              icon = L.divIcon({
+                className: "custom-pin",
+                html: `<div style="
+                  width:16px;height:16px;border-radius:50%;
+                  background:green;
+                  border:2px solid white;
+                  box-shadow:0 0 4px #555;
+                "></div>`
+              });
+            }
+
+            if (!markers[p.id]) {
+              markers[p.id] = L.marker([p.lat, p.lng], { icon }).addTo(map);
+            } else {
+              markers[p.id].setLatLng([p.lat, p.lng]);
+              markers[p.id].setIcon(icon);
+            }
+          });
+        });
+    }
+
+    setInterval(updateMap, 3000);
+    updateMap();
+
+
+    /* ------------------- ALERTS (LIMIT TO LAST 5) -------------------- */
+
+    function updateAlerts() {
+      fetch(API_ALERTS)
+        .then(r => r.json())
+        .then(alerts => {
+          const container = document.getElementById("alerts-list");
+          container.innerHTML = "";
+
+          if (!alerts || alerts.length === 0) {
+            container.innerHTML = "<div>لا توجد بلاغات</div>";
+            return;
+          }
+
+          alerts
+            .slice()       // copy array
+            .reverse()     // newest first
+            .slice(0, 5)   // ONLY LAST 5
+            .forEach(a => {
+              container.innerHTML += `
+                <div class="alert-card">
+                  <strong>🚨 بلاغ خروج عن النطاق</strong><br>
+                  الحاج: ${a.id}<br>
+                  الإحداثيات: ${a.lat.toFixed(5)}, ${a.lng.toFixed(5)}<br>
+                  الوقت: ${a.timestamp}
+                </div>
+              `;
+            });
+        })
+        .catch(err => {
+          console.error("Error loading alerts:", err);
+        });
+    }
+
+    setInterval(updateAlerts, 5000);
+    updateAlerts();
+
+  </script>
+
+</body>
+</html>

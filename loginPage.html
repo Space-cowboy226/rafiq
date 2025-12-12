@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول – منصة رفيق</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <div class="brand">
+      <img src="Rafeeq/Rafeeq Logo.png" alt="شعار رفيق">
+      <span>منصة رفيق</span>
+    </div>
+    <div>
+      <a href="index.html">الرئيسية</a>
+      <a href="features.html">المزايا</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="scan.html">مسح QR/بصمة وجه</a>
+      <a href="pilgrim-app.html">تطبيق الحاج</a>
+      <a href="loginPage.html">تسجيل الدخول</a>
+    </div>
+  </nav>
+
+  <div class="container auth-layout">
+    <div class="auth-card">
+      <h1>تسجيل الدخول</h1>
+      <p class="auth-subtitle">
+        دخول الجهات الميدانية وغرف العمليات إلى لوحة التحكم التشغيلية لرفيق.
+      </p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">اسم المستخدم</label>
+          <input id="username" type="text" placeholder="admin" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input id="password" type="password" placeholder="admin" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-btn">
+          دخول المنصة التجريبية
+        </button>
+
+        <p id="login-error" class="auth-error" style="display:none;">
+          ❌ اسم المستخدم أو كلمة المرور غير صحيحة
+        </p>
+
+        <p class="auth-hint">
+          هذه النسخة للعرض فقط ضمن الهاكاثون، ولا ترتبط بأي أنظمة دخول حقيقية.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    رفيق – منصة تجريبية للعرض في الهاكاثون • لا تحتوي على بيانات حقيقية
+  </footer>
+  <script>
+    document.getElementById("login-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const errorBox = document.getElementById("login-error");
+
+      if (user === "admin" && pass === "admin") {
+        // دخول ناجح
+        errorBox.style.display = "none";
+        window.location.href = "dashboard.html";
+      } else {
+        // دخول خاطئ
+        errorBox.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
